@@ -1,0 +1,19 @@
+// Work shown on the site. To add a video: drop its preview in assets/previews,
+// its poster in assets/thumbs, and add one line here.
+window.WORKS = [
+  { id: 'fight-club',   title: 'Fight Club',           brand: 'Personal',      type: 'Storytelling',
+    thumb: 'assets/thumbs/fight-club.jpg',   preview: null,
+    url: 'https://www.instagram.com/p/DFx-pI2Idc9/' },
+  { id: 'ahmed-zaki',   title: 'Ahmed Zaki',           brand: 'Khwarizmiat',   type: 'Storytelling',
+    thumb: 'assets/thumbs/ahmed-zaki.jpg',   preview: 'assets/previews/ahmed-zaki.mp4',
+    url: 'https://www.instagram.com/p/DWjnJo6jRbl/' },
+  { id: 'valentine',    title: "Valentine's Day",      brand: 'Personal',      type: 'Storytelling',
+    thumb: 'assets/thumbs/valentine.jpg',    preview: 'assets/previews/valentine.mp4',
+    url: 'https://www.instagram.com/p/DGBVQ8Botaj/' },
+  { id: 'magic-mask',   title: 'Text with Magic Mask', brand: 'Personal',      type: 'DaVinci Tutorial',
+    thumb: 'assets/thumbs/magic-mask.jpg',   preview: 'assets/previews/magic-mask.mp4',
+    url: 'https://www.instagram.com/reel/DKp96Xjo9oz/' },
+  { id: 'mere-exposure', title: 'Mere Exposure Effect', brand: 'Brima Digital', type: 'Marketing',
+    thumb: null, preview: null,
+    url: 'https://www.instagram.com/p/Dd05Ys9Icds/' },
+];

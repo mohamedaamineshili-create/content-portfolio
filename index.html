@@ -4,17 +4,101 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mohamed Amine Sehili — Content Creator</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono&display=swap" rel="stylesheet">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{background:#080808;color:#f0ede8;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;padding:1rem;text-align:center}
-  h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,10vw,7rem);letter-spacing:.03em;line-height:.95}
-  h1 em{font-style:normal;color:#e03030}
-  p{font-family:'Space Mono',monospace;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:#888880}
-</style>
+<meta name="description" content="Reels and short-form content, written, shot and edited end to end for brands.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1>Mohamed Amine<br><em>Sehili</em></h1>
-  <p>Content Creator · Coming soon</p>
+
+<header class="nav">
+  <a href="#top" class="nav-logo">MAS</a>
+  <a href="#contact" class="nav-cta">Let's talk</a>
+</header>
+
+<!-- SCROLL STAGE: intro → ribbon → grid → sphere -->
+<section class="stage-wrap" id="top">
+  <div class="stage">
+    <div class="light-layer" id="lightLayer"></div>
+
+    <div class="intro" id="intro">
+      <p class="kicker">Mohamed Amine Sehili · Content Creator</p>
+      <h1 class="intro-title">
+        <span class="l1" id="introL1">Stories</span>
+        <span class="l2" id="introL2">that stop <em>the scroll</em></span>
+      </h1>
+      <p class="scroll-hint">Scroll</p>
+    </div>
+
+    <p class="phase-caption" id="capRibbon">Selected work — written, shot &amp; edited by me</p>
+
+    <div class="grid-caption" id="capGrid">
+      <h2>Every frame, <em>mine.</em></h2>
+      <p>Concept · Script · Shoot · Edit · Post</p>
+    </div>
+
+    <div class="world" id="world"></div>
+
+    <div class="sphere-text" id="capSphere">
+      <p>Brands don't need more content. They need <strong>stories people stop for.</strong> I write, shoot and edit reels end to end — so your message lands in the first three seconds.</p>
+    </div>
+  </div>
+</section>
+
+<!-- BRANDS -->
+<section class="brands">
+  <p class="label">Trusted by</p>
+  <ul class="brand-list">
+    <li>Brima Digital</li>
+    <li>STTE</li>
+    <li>Reach Agency</li>
+    <li>IIT</li>
+    <li>Khwarizmiat</li>
+  </ul>
+</section>
+
+<!-- PROCESS -->
+<section class="process">
+  <p class="label">How I work</p>
+  <ol class="steps">
+    <li><span>01</span><h3>Concept</h3><p>The angle and the hook that make people stop.</p></li>
+    <li><span>02</span><h3>Script</h3><p>Every second written for retention, in Arabic, French or English.</p></li>
+    <li><span>03</span><h3>Shoot</h3><p>Cinematic footage, lighting and sound — on location or in studio.</p></li>
+    <li><span>04</span><h3>Edit</h3><p>Pacing, sound design, color grade, subtitles. Ready to post.</p></li>
+  </ol>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <h2>Let's make something<br>people <em>stop for.</em></h2>
+  <div class="contact-links">
+    <a href="mailto:mohamedaamineshili@gmail.com">mohamedaamineshili@gmail.com</a>
+    <a href="https://wa.me/21652450519" target="_blank" rel="noopener">WhatsApp · +216 52 450 519</a>
+  </div>
+  <div class="socials">
+    <a href="https://instagram.com/mohamed.amine.sehili" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/@mohamedamine.sehili" target="_blank" rel="noopener">TikTok</a>
+    <a href="https://youtube.com/@Mohamed.AmineSehili" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://www.linkedin.com/in/mohamed-amine-shili" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://mohamedaminesehili.vercel.app/" target="_blank" rel="noopener">Filmmaker portfolio ↗</a>
+  </div>
+  <p class="foot">© 2026 Mohamed Amine Sehili</p>
+</section>
+
+<!-- VIDEO MODAL -->
+<div class="modal" id="modal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" data-close aria-label="Close">✕</button>
+    <div class="modal-frame"><iframe id="modalFrame" title="Video" allowfullscreen></iframe></div>
+    <div class="modal-foot">
+      <span id="modalTitle"></span>
+      <a id="modalLink" href="#" target="_blank" rel="noopener">Open on Instagram ↗</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
