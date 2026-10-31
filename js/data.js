@@ -2,7 +2,7 @@
 // its poster in assets/thumbs, and add one line here.
 window.WORKS = [
   { id: 'fight-club',   title: 'Fight Club',           brand: 'Personal',      type: 'Storytelling',
-    thumb: 'assets/thumbs/fight-club.jpg',   preview: null,
+    thumb: 'assets/thumbs/fight-club.jpg',   preview: 'assets/previews/fight-club.mp4',
     url: 'https://www.instagram.com/p/DFx-pI2Idc9/' },
   { id: 'ahmed-zaki',   title: 'Ahmed Zaki',           brand: 'Khwarizmiat',   type: 'Storytelling',
     thumb: 'assets/thumbs/ahmed-zaki.jpg',   preview: 'assets/previews/ahmed-zaki.mp4',
@@ -14,9 +14,9 @@ window.WORKS = [
     thumb: 'assets/thumbs/magic-mask.jpg',   preview: 'assets/previews/magic-mask.mp4',
     url: 'https://www.instagram.com/reel/DKp96Xjo9oz/' },
   { id: 'mere-exposure', title: 'Mere Exposure Effect', brand: 'Brima Digital', type: 'Marketing',
-    thumb: null, preview: null,
+    thumb: 'assets/thumbs/mere-exposure.jpg', preview: 'assets/previews/mere-exposure.mp4',
     url: 'https://www.instagram.com/p/Dd05Ys9Icds/' },
   { id: 'self-discovery', title: 'Self Discovery',     brand: 'Brima House',   type: 'Storytelling',
-    thumb: null, preview: null,
+    thumb: 'assets/thumbs/self-discovery.jpg', preview: 'assets/previews/self-discovery.mp4',
     url: 'https://www.instagram.com/p/De2WTubxRCj/' },
 ];
