@@ -45,6 +45,40 @@
   </div>
 </section>
 
+<!-- ABOUT: paper collapses into a beam, I emerge, my story, beam opens back -->
+<section class="about-wrap" id="about">
+  <div class="about">
+    <div class="about-paper" id="aboutPaper"></div>
+    <div class="beam" id="beam"></div>
+    <div class="cubes" id="cubes" aria-hidden="true"></div>
+
+    <figure class="portrait" id="portrait">
+      <img src="assets/about/portrait.webp" alt="Mohamed Amine Sehili" width="900" height="883">
+    </figure>
+
+    <article class="chapter left" data-ch="0">
+      <h3><span>01</span>The Start</h3>
+      <p>Eight years ago I opened an editing timeline and never really closed it. Cutting other people's footage taught me exactly what makes a viewer stay — and what makes them scroll.</p>
+    </article>
+    <article class="chapter right" data-ch="1">
+      <h3><span>02</span>The Shift</h3>
+      <p>So I picked up the camera and started writing my own stories. Psychology, identity, cinema — told in Tunisian, shot like a film, cut for the feed.</p>
+    </article>
+    <article class="chapter left" data-ch="2">
+      <h3><span>03</span>The Work</h3>
+      <p>Today I build content end to end for brands like Brima Digital and Brima House: the idea, the script, the shoot, the edit. One person, one vision, nothing lost between hands.</p>
+    </article>
+
+    <svg class="story-badge" id="storyBadge" viewBox="0 0 120 120" aria-hidden="true">
+      <defs><path id="circ" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+      <text><textPath href="#circ">MY STORY · MY STORY · MY STORY · </textPath></text>
+      <circle cx="60" cy="60" r="3"/>
+    </svg>
+
+    <p class="name-tag" id="nameTag">Mohamed Amine Sehili<br><span>Content creator &amp; filmmaker · Tunisia</span></p>
+  </div>
+</section>
+
 <!-- BRANDS -->
 <section class="brands">
   <p class="label">Trusted by</p>
@@ -97,5 +131,6 @@
 
 <script src="js/data.js"></script>
 <script src="js/main.js"></script>
+<script src="js/about.js"></script>
 </body>
 </html>

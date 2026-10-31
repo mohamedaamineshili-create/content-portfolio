@@ -52,6 +52,37 @@ a{color:inherit}
 .sphere-text p{max-width:15em;font-size:clamp(1.6rem,3.6vw,3.2rem);line-height:1.15;font-weight:300;color:var(--paper-ink);letter-spacing:-.01em}
 .sphere-text strong{font-weight:500;color:var(--accent)}
 
+/* ABOUT */
+.about-wrap{position:relative;height:420vh;background:var(--bg)}
+.about{position:sticky;top:0;height:100vh;overflow:hidden;background:var(--bg)}
+.about-paper{position:absolute;inset:0;background:var(--paper);z-index:5;pointer-events:none}
+.beam{position:absolute;left:50%;top:0;width:2px;height:62vh;transform:translateX(-50%) scaleY(0);transform-origin:top;z-index:1;
+  background:linear-gradient(to bottom,#fff 0%,rgba(255,255,255,.85) 30%,rgba(255,255,255,0) 100%);
+  box-shadow:0 0 18px 4px rgba(255,255,255,.35),0 0 80px 18px rgba(255,255,255,.12);pointer-events:none}
+.beam::after{content:'';position:absolute;left:50%;top:0;width:46vw;height:70vh;transform:translateX(-50%);
+  background:radial-gradient(ellipse 50% 60% at 50% 0%,rgba(255,255,255,.16),transparent 70%);opacity:var(--glow,0)}
+.cubes{position:absolute;inset:0;z-index:2;pointer-events:none}
+.cube{position:absolute;width:var(--s);height:var(--s);background:linear-gradient(135deg,#2a2a2a,#0d0d0d);border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 6px 18px rgba(0,0,0,.6);opacity:0;will-change:transform,opacity}
+.portrait{position:absolute;left:50%;bottom:-6vh;z-index:3;width:min(112vh,78vw);transform:translateX(-50%);pointer-events:none;
+  opacity:0;will-change:transform,opacity,filter}
+.portrait img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(to bottom,#000 var(--m,0%),transparent calc(var(--m,0%) + 18%));
+  mask-image:linear-gradient(to bottom,#000 var(--m,0%),transparent calc(var(--m,0%) + 18%))}
+.chapter{position:absolute;top:50%;z-index:4;width:min(22rem,30vw);opacity:0;transform:translateY(calc(-50% + 18px));
+  transition:opacity .6s ease,transform .6s ease;pointer-events:none}
+.chapter.on{opacity:1;transform:translateY(-50%)}
+.chapter.left{left:2.5rem}
+.chapter.right{right:2.5rem;text-align:right}
+.chapter h3{font-family:'Space Mono',monospace;font-weight:400;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--ink);margin-bottom:.9rem}
+.chapter h3 span{color:var(--accent);margin-right:.7rem}
+.chapter p{font-size:clamp(1rem,1.35vw,1.2rem);line-height:1.65;color:#bdbab4;font-weight:300}
+.story-badge{position:absolute;left:2.5rem;bottom:2rem;z-index:4;width:96px;height:96px;opacity:0;animation:spin 14s linear infinite}
+.story-badge text{font-family:'Space Mono',monospace;font-size:10.2px;letter-spacing:2.2px;fill:var(--muted)}
+.story-badge circle{fill:var(--accent)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.name-tag{position:absolute;right:2.5rem;bottom:2.2rem;z-index:4;text-align:right;font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);opacity:0}
+.name-tag span{color:var(--muted);font-size:.6rem}
+
 /* LIGHT SECTIONS */
 .brands,.process{background:var(--paper);color:var(--paper-ink);padding:6rem 2.5rem}
 .label{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--paper-muted);margin-bottom:2rem}
@@ -100,6 +131,12 @@ a{color:inherit}
   .card-meta b{font-size:.9rem}
   .grid-caption{top:11vh}
   .sphere-text{align-items:flex-end;padding-bottom:12vh}
+  .portrait{width:min(96vw,52vh);bottom:auto;top:12vh}
+  .chapter,.chapter.left,.chapter.right{left:1rem;right:1rem;width:auto;top:auto;bottom:5.2rem;text-align:left;transform:translateY(18px)}
+  .chapter.on{transform:none}
+  .chapter p{font-size:1rem;line-height:1.6}
+  .story-badge{display:none}
+  .name-tag{left:1rem;right:auto;bottom:1.6rem;text-align:left}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
