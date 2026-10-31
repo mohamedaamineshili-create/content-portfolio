@@ -19,4 +19,7 @@ window.WORKS = [
   { id: 'self-discovery', title: 'Self Discovery',     brand: 'Brima House',   type: 'Storytelling',
     thumb: 'assets/thumbs/self-discovery.jpg', preview: 'assets/previews/self-discovery.mp4',
     url: 'https://www.instagram.com/p/De2WTubxRCj/' },
+  { id: 'next-level',   title: 'Next Level',           brand: 'Next Level',    type: 'Content Service',
+    thumb: 'assets/thumbs/next-level.jpg',   preview: 'assets/previews/next-level.mp4',
+    url: 'https://www.instagram.com/p/Demn0seDk2g/' },
 ];
