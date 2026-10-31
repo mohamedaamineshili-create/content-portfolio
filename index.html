@@ -45,19 +45,20 @@
   </div>
 </section>
 
-<!-- ABOUT: paper collapses into a beam, I emerge, my story, beam opens back -->
+<!-- ABOUT: camera shutter + flash, then my set with a breakdown and my story -->
 <section class="about-wrap" id="about">
-  <div class="about">
-    <div class="about-paper" id="aboutPaper"></div>
-    <div class="set-ambient" id="setAmbient"></div>
-    <div class="beam" id="beam"></div>
-    <div class="cubes" id="cubes" aria-hidden="true"></div>
+  <div class="about" id="aboutStage">
+    <div class="about-paper"></div>
+    <div class="flash" aria-hidden="true"></div>
+    <div class="shutter top" aria-hidden="true"></div>
+    <div class="shutter bottom" aria-hidden="true"></div>
+    <div class="about-end" id="aboutEnd"></div>
+    <div class="ambient-wrap" id="ambientWrap"><div class="set-ambient"></div></div>
 
     <figure class="set-frame" id="setFrame">
-      <img class="set-photo" id="setPhoto" alt="My studio set" width="1080" height="1920"
+      <img class="set-photo" alt="Mohamed Amine Sehili in his studio set" width="1080" height="1920"
            src="assets/about/set.webp" srcset="assets/about/set-sm.webp 540w, assets/about/set.webp 1080w" sizes="(max-width: 768px) 60vw, 50vh">
-      <img class="set-cut" id="setCut" alt="Mohamed Amine Sehili" width="1080" height="1920"
-           src="assets/about/cut.webp" srcset="assets/about/cut-sm.webp 540w, assets/about/cut.webp 1080w" sizes="(max-width: 768px) 60vw, 50vh">
+      <div class="viewfinder" aria-hidden="true"><i></i><i></i><i></i><i></i><span>● Shot 001</span></div>
       <span class="spot to-r" style="left:23%;top:32%"><i></i><b>Practical light</b></span>
       <span class="spot to-l" style="left:88%;top:20%"><i></i><b>RGB light</b></span>
       <span class="spot to-r" style="left:25%;top:13%"><i></i><b>Set dressing</b></span>

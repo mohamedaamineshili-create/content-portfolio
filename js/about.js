@@ -2,97 +2,54 @@
   const wrap = document.querySelector('.about-wrap');
   if (!wrap) return;
   const $ = id => document.getElementById(id);
-  const paper = $('aboutPaper'), beam = $('beam'), ambient = $('setAmbient');
-  const frame = $('setFrame'), photo = $('setPhoto'), cut = $('setCut'), label = $('setLabel');
+  const stage = $('aboutStage'), end = $('aboutEnd'), ambient = $('ambientWrap');
+  const frame = $('setFrame'), label = $('setLabel');
   const bts = $('setBts'), btsLabel = $('btsLabel');
-  let btsPlaying = false;
   const badge = $('storyBadge'), tag = $('nameTag');
   const chapters = [...document.querySelectorAll('.chapter')];
   const spots = [...document.querySelectorAll('.spot')];
-  const cubeBox = $('cubes');
 
   const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
   const seg = (p, a, b) => clamp((p - a) / (b - a));
   const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-  // floating dark cubes while I'm still in the dark
-  const pos = [[8,18],[18,64],[27,32],[12,82],[72,22],[84,58],[91,30],[78,80],[34,12],[66,10],[5,46],[95,72]];
-  const cubes = pos.map(([x, y], i) => {
-    const el = document.createElement('span');
-    el.className = 'cube';
-    el.style.cssText = `left:${x}%;top:${y}%;--s:${8 + (i * 7) % 18}px`;
-    cubeBox.appendChild(el);
-    return { el, speed: 40 + (i * 37) % 120, rot: (i * 53) % 90 };
-  });
+  let shot = false, btsPlaying = false, ticking = false;
 
-  function paperClip(t) {            // 0 = full page, 1 = thin beam
-    const side = t * (innerWidth / 2 - 1), bottom = t * innerHeight * 0.38;
-    return `inset(0px ${side}px ${bottom}px ${side}px)`;
-  }
-
-  let ticking = false;
   function render() {
     ticking = false;
     const r = wrap.getBoundingClientRect();
     const q = clamp(-r.top / (r.height - innerHeight));
 
-    // 1. white page collapses into a beam; at the end the page simply fades back in
-    const t = q < 0.5 ? ease(seg(q, 0, 0.08)) : 1;
-    const back = ease(seg(q, 0.9, 1));
-    if (q < 0.5) {
-      paper.style.clipPath = paperClip(t);
-      paper.style.opacity = t > 0.995 ? 0 : 1;
-    } else {
-      paper.style.clipPath = 'none';
-      paper.style.opacity = back.toFixed(3);
-    }
+    // 1. the camera takes the shot (time-based, fires once; re-arms at the very top)
+    if (!shot && q > 0.03) { shot = true; stage.classList.add('shot'); }
+    else if (shot && q < 0.01) { shot = false; stage.classList.remove('shot'); }
 
-    // 2. I emerge from the dark under the beam
-    const o = ease(seg(q, 0.08, 0.2));
-    // 3. lights on: the set opens around me
-    const L = ease(seg(q, 0.2, 0.34));
-    // 6. gentle fade out before the page turns white
-    const out = ease(seg(q, 0.86, 0.94));
+    // 2. setup breakdown
+    label.style.opacity = (seg(q, 0.1, 0.14) * (1 - seg(q, 0.42, 0.45))).toFixed(3);
+    spots.forEach((s, i) => s.classList.toggle('on', q > 0.18 + i * 0.035 && q < 0.44));
 
-    beam.style.transform = `translateX(-50%) scaleY(${t > 0.97 ? 1 : 0})`;
-    beam.style.opacity = ((1 - L * 0.85) * (1 - out)).toFixed(3);
-    beam.style.setProperty('--glow', (o * (1 - L)).toFixed(3));
-
-    cut.style.opacity = (o * (1 - seg(q, 0.33, 0.37))).toFixed(3);
-    cut.style.filter = `brightness(${(0.15 + 0.85 * o).toFixed(2)}) blur(${((1 - o) * 14).toFixed(1)}px)`;
-    cut.style.setProperty('--m', `${-18 + o * 118}%`);
-
-    photo.style.clipPath = `circle(${(L * 120).toFixed(2)}% at 50% 24%)`;
-    ambient.style.opacity = (L * (1 - out)).toFixed(3);
-    frame.style.setProperty('--frame', L.toFixed(3));
-    frame.style.setProperty('--s', (1.06 - 0.06 * o - out * 0.04).toFixed(3));
-    frame.style.opacity = (1 - out).toFixed(3);
-    label.style.opacity = (seg(q, 0.3, 0.34) * (1 - seg(q, 0.54, 0.57))).toFixed(3);
-
-    cubes.forEach(c => {
-      c.el.style.opacity = (o * (1 - L) * 0.9).toFixed(3);
-      c.el.style.transform = `translateY(${(0.5 - q) * c.speed}px) rotate(${c.rot + q * 120}deg)`;
-    });
-
-    // 4. setup breakdown: labels pop in one by one
-    spots.forEach((s, i) => s.classList.toggle('on', q > 0.37 + i * 0.03 && q < 0.56));
-
-    // behind the scenes plays during "The Work"
-    const B = ease(seg(q, 0.76, 0.8));
-    bts.style.clipPath = `inset(${((1 - B) * 100).toFixed(2)}% 0 0 0)`;
-    btsLabel.style.opacity = (seg(q, 0.79, 0.82) * (1 - seg(q, 0.85, 0.87))).toFixed(3);
-    const wantBts = B > 0 && q < 0.94;
-    if (wantBts !== btsPlaying) {
-      btsPlaying = wantBts;
-      if (wantBts) { bts.preload = 'auto'; bts.play().catch(() => {}); } else bts.pause();
-    }
-    if (q > 0.6 && bts.preload === 'none') bts.preload = 'auto';
-
-    // 5. my story
-    const active = q < 0.58 || q > 0.86 ? -1 : q < 0.67 ? 0 : q < 0.76 ? 1 : 2;
+    // 3. my story, with behind-the-scenes during "The Work"
+    const active = q < 0.48 || q > 0.86 ? -1 : q < 0.61 ? 0 : q < 0.73 ? 1 : 2;
     chapters.forEach((ch, i) => ch.classList.toggle('on', i === active));
 
-    const ui = seg(q, 0.2, 0.26) * (1 - seg(q, 0.85, 0.88));
+    const B = ease(seg(q, 0.73, 0.77));
+    bts.style.clipPath = `inset(${((1 - B) * 100).toFixed(2)}% 0 0 0)`;
+    btsLabel.style.opacity = (seg(q, 0.76, 0.79) * (1 - seg(q, 0.85, 0.87))).toFixed(3);
+    if (q > 0.55 && bts.preload === 'none') bts.preload = 'auto';
+    const wantBts = B > 0 && q < 0.95;
+    if (wantBts !== btsPlaying) {
+      btsPlaying = wantBts;
+      if (wantBts) bts.play().catch(() => {}); else bts.pause();
+    }
+
+    // 4. gentle fade out, then the page turns white for "Trusted by"
+    const out = ease(seg(q, 0.86, 0.94));
+    frame.style.opacity = (1 - out).toFixed(3);
+    frame.style.setProperty('--s', (1 - out * 0.04).toFixed(3));
+    ambient.style.opacity = (1 - out).toFixed(3);
+    end.style.opacity = ease(seg(q, 0.9, 1)).toFixed(3);
+
+    const ui = seg(q, 0.08, 0.12) * (1 - seg(q, 0.85, 0.88));
     badge.style.opacity = ui.toFixed(3);
     tag.style.opacity = ui.toFixed(3);
   }
