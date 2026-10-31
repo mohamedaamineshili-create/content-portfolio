@@ -16,4 +16,7 @@ window.WORKS = [
   { id: 'mere-exposure', title: 'Mere Exposure Effect', brand: 'Brima Digital', type: 'Marketing',
     thumb: null, preview: null,
     url: 'https://www.instagram.com/p/Dd05Ys9Icds/' },
+  { id: 'self-discovery', title: 'Self Discovery',     brand: 'Brima House',   type: 'Storytelling',
+    thumb: null, preview: null,
+    url: 'https://www.instagram.com/p/De2WTubxRCj/' },
 ];
