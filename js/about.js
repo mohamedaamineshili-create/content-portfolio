@@ -4,6 +4,8 @@
   const $ = id => document.getElementById(id);
   const paper = $('aboutPaper'), beam = $('beam'), ambient = $('setAmbient');
   const frame = $('setFrame'), photo = $('setPhoto'), cut = $('setCut'), label = $('setLabel');
+  const bts = $('setBts'), btsLabel = $('btsLabel');
+  let btsPlaying = false;
   const badge = $('storyBadge'), tag = $('nameTag');
   const chapters = [...document.querySelectorAll('.chapter')];
   const spots = [...document.querySelectorAll('.spot')];
@@ -34,20 +36,26 @@
     const r = wrap.getBoundingClientRect();
     const q = clamp(-r.top / (r.height - innerHeight));
 
-    // 1. white page collapses into a beam (and opens again at the end)
-    const t = q < 0.5 ? ease(seg(q, 0, 0.08)) : 1 - ease(seg(q, 0.92, 1));
-    paper.style.clipPath = paperClip(t);
-    paper.style.opacity = t > 0.995 ? 0 : 1;
+    // 1. white page collapses into a beam; at the end the page simply fades back in
+    const t = q < 0.5 ? ease(seg(q, 0, 0.08)) : 1;
+    const back = ease(seg(q, 0.9, 1));
+    if (q < 0.5) {
+      paper.style.clipPath = paperClip(t);
+      paper.style.opacity = t > 0.995 ? 0 : 1;
+    } else {
+      paper.style.clipPath = 'none';
+      paper.style.opacity = back.toFixed(3);
+    }
 
     // 2. I emerge from the dark under the beam
     const o = ease(seg(q, 0.08, 0.2));
     // 3. lights on: the set opens around me
     const L = ease(seg(q, 0.2, 0.34));
-    // 6. dissolve into light
-    const out = ease(seg(q, 0.86, 0.93));
+    // 6. gentle fade out before the page turns white
+    const out = ease(seg(q, 0.86, 0.94));
 
     beam.style.transform = `translateX(-50%) scaleY(${t > 0.97 ? 1 : 0})`;
-    beam.style.opacity = (1 - L * 0.85).toFixed(3);
+    beam.style.opacity = ((1 - L * 0.85) * (1 - out)).toFixed(3);
     beam.style.setProperty('--glow', (o * (1 - L)).toFixed(3));
 
     cut.style.opacity = (o * (1 - seg(q, 0.33, 0.37))).toFixed(3);
@@ -57,9 +65,8 @@
     photo.style.clipPath = `circle(${(L * 120).toFixed(2)}% at 50% 24%)`;
     ambient.style.opacity = (L * (1 - out)).toFixed(3);
     frame.style.setProperty('--frame', L.toFixed(3));
-    frame.style.setProperty('--s', (1.06 - 0.06 * o + out * 0.05).toFixed(3));
+    frame.style.setProperty('--s', (1.06 - 0.06 * o - out * 0.04).toFixed(3));
     frame.style.opacity = (1 - out).toFixed(3);
-    frame.style.filter = out > 0 ? `brightness(${(1 + out * 2).toFixed(2)})` : '';
     label.style.opacity = (seg(q, 0.3, 0.34) * (1 - seg(q, 0.54, 0.57))).toFixed(3);
 
     cubes.forEach(c => {
@@ -70,8 +77,19 @@
     // 4. setup breakdown: labels pop in one by one
     spots.forEach((s, i) => s.classList.toggle('on', q > 0.37 + i * 0.03 && q < 0.56));
 
+    // behind the scenes plays during "The Work"
+    const B = ease(seg(q, 0.76, 0.8));
+    bts.style.clipPath = `inset(${((1 - B) * 100).toFixed(2)}% 0 0 0)`;
+    btsLabel.style.opacity = (seg(q, 0.79, 0.82) * (1 - seg(q, 0.85, 0.87))).toFixed(3);
+    const wantBts = B > 0 && q < 0.94;
+    if (wantBts !== btsPlaying) {
+      btsPlaying = wantBts;
+      if (wantBts) { bts.preload = 'auto'; bts.play().catch(() => {}); } else bts.pause();
+    }
+    if (q > 0.6 && bts.preload === 'none') bts.preload = 'auto';
+
     // 5. my story
-    const active = q < 0.58 || q > 0.86 ? -1 : q < 0.68 ? 0 : q < 0.77 ? 1 : 2;
+    const active = q < 0.58 || q > 0.86 ? -1 : q < 0.67 ? 0 : q < 0.76 ? 1 : 2;
     chapters.forEach((ch, i) => ch.classList.toggle('on', i === active));
 
     const ui = seg(q, 0.2, 0.26) * (1 - seg(q, 0.85, 0.88));
